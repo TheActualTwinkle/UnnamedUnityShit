@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b64f3b167b2995d488c92d1eb0066a6b, type: 3}
+  m_Name: KillQuest
+  m_EditorClassIdentifier: 
+  questID: KillQuest
+  questType: 2
+  isCompleted: 0
+  languageVariants:
+  - language: 1
+    questName: KillQuest
+    location: 
+    whatToDo: []
+  - language: 2
+    questName: "\u0423\u0431\u0438\u0442\u044C"
+    location: 
+    whatToDo: []
+  - language: 3
+    questName: 
+    location: 
+    whatToDo: []
+  whomToKill: {fileID: 3859190469144352239, guid: e6dc37a363cdf584aae2c07b61b1a49f,
+    type: 3}
+  needKills: 2
+  currentKills: 0

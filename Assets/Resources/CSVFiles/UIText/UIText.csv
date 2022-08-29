@@ -1,0 +1,21 @@
+Text ID;English;Russian
+NewGameText;New Game;Новая игра
+LoadGameText;Load Game;Загрузить игру
+ResumeText;Resume Game;Продолжить
+SaveandQuitText;Save and Quit;Сохранить и выйти
+OptionsText;Options;Настройки
+QuitText;Quit;Выход
+MasterVolumeText;Master Volume;Общая громкость
+SFXVolumeText;SFX Volume;Громкость эффектов
+MusicVolumeText;Music Volume;Громкость музыки
+KeybindsText;Keybinds;Настройка клавиш
+DevelopersText;Developers;Разработчики
+BackText;Back;Назад
+NewGameConfirmText;Are you sure want to start a new game?;Вы действительно хотите начать новую игру?
+YesText;Yes;Да
+NoText;No;Нет
+ChangeLngToEnglishText;Set English;Английский
+ChangeLngToRussianText;Set Russian;Русский
+AddDialogueText;Add Dialogue;Добавить диалог
+NewQuestText;New quest;Новое задание
+EndQuestText;Quest completed!;Задание выполнено!
