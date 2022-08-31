@@ -45,7 +45,9 @@ public class DialogueObject : ScriptableObject
                 foreach (var paragraphs in dialogueVariant.Paragraphs)
                 {
                     if (paragraphs.Length == 0)
+                    {
                         Debug.LogWarning($"No text in '{DialogueID}' on '{SpeakerName}/{DialogueID}'. Language is {dialogueVariant.language} (id: {(int)dialogueVariant.language})");
+                    }
                 }
             }
             catch { }

@@ -9,7 +9,7 @@ public class CSVReader
 {
     public static Dictionary<string, List<string>> GetFileInfo(TextAsset textAssetData)
     {
-        List<string> rawCSVData = textAssetData.text.Split(new string[] { ";", "\n", "\r" }, StringSplitOptions.None).ToList().Except(new string[] { "" }).ToList();
+        List<string> rawCSVData = textAssetData.text.Split(new string[] { ";", "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries).ToList();
         Dictionary<string, List<string>> translations = new Dictionary<string, List<string>>();
         int lineStep = 1 + Enum.GetNames(typeof(Languages)).Length;
 
@@ -31,18 +31,18 @@ public class CSVReader
         {
             translation.Clear();
             textID = rawCSVData[i];
+            if (textID.EndsWith("Text") == false)
+            {
+                Debug.LogError("Fatal: translation is broken. Somewhere on: )" + textID);
+                continue;
+            }
+
             for (int j = i+1; j < i + lineStep; j++)
             {
                 translation.Add(rawCSVData[j]);
             }
 
-            translations.Add(textID, translation);
-        }
-
-        if (IsAllTextHasTranslation(translations, out List<string> notTranslatedIDs) == false)
-        {
-            Debug.LogError("File doesn`t has all translations");
-            return null;
+            translations.Add(textID, translation.ToList());
         }
 
         return translations;
@@ -79,12 +79,6 @@ public class CSVReader
             }
         }
 
-        return true;
-    }
-
-    private static bool IsAllTextHasTranslation(Dictionary<string, List<string>> translations, out List<string> notTranslatedIDs)
-    {
-        notTranslatedIDs = new List<string>();
         return true;
     }
 

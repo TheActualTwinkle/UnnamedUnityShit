@@ -11,7 +11,7 @@ public class Language
 
     public static Languages GetCurrentLanguage()
     {
-        if (currentLanguage == 0)
+        if (currentLanguage == 0) // If unassigned.
         {
             int bracketIndex = CultureInfo.CurrentCulture.EnglishName.IndexOf(' ');
             string systemLanguage = CultureInfo.CurrentCulture.EnglishName.Remove(bracketIndex);
@@ -34,8 +34,9 @@ public class Language
     }
 }
 
+// Do not delete.
 public enum Languages
 {
     English = 1,
-    German,
+    Russian,
 }

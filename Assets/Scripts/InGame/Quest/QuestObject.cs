@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExtensionMethods;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -37,32 +38,35 @@ public abstract class QuestObject : ScriptableObject
 
     private void SetupLanguageVariants()
     {
-        string[] supportedLanguages = Enum.GetNames(typeof(Languages));
+        List<string> supportedLanguages = Enum.GetNames(typeof(Languages)).ToList();
 
         if (languageVariants == null)
         {
-            languageVariants = new List<QuestLanguageVariant>(supportedLanguages.Length);
-            for (int i = 0; i < supportedLanguages.Length; i++)
+            languageVariants = new List<QuestLanguageVariant>(supportedLanguages.Count);
+            for (int i = 0; i < supportedLanguages.Count; i++)
             {
                 languageVariants.Add(new QuestLanguageVariant());
             }
         }
 
-        if (LanguageVariants.Count < supportedLanguages.Length)
+        if (LanguageVariants.Count < supportedLanguages.Count)
         {
-            languageVariants.Add(new QuestLanguageVariant());
+            int missingVariantsCount = supportedLanguages.Count - LanguageVariants.Count;
+            for (int i = 0; i < missingVariantsCount; i++)
+            {
+                languageVariants.Add(new QuestLanguageVariant());
+            }
         }
-        else if (LanguageVariants.Count > supportedLanguages.Length)
+        else if (LanguageVariants.Count > supportedLanguages.Count)
         {
-            List<string> presentedLanguages = LanguageVariants.Select(x => x.language.ToString()).ToList();
-            List<string> removedLanguages = presentedLanguages.Except(supportedLanguages).ToList();
+            List<QuestLanguageVariant> presentedLanguages = LanguageVariants.ToList();
+            List<QuestLanguageVariant> rightLanguages = presentedLanguages.Where(x => supportedLanguages.Contains(x.language.ToString())).DistinctBy(x => x.language).ToList();
+            List<QuestLanguageVariant> removedVariants = presentedLanguages.Except(rightLanguages).ToList();
 
-            List<QuestLanguageVariant> removedDialogueVariants = languageVariants.Where(x => removedLanguages.Contains(x.language.ToString())).ToList();
-
-            languageVariants = languageVariants.Except(removedDialogueVariants).ToList();
+            languageVariants = languageVariants.Except(removedVariants).ToList();
         }
 
-        for (int i = 0; i < supportedLanguages.Length; i++)
+        for (int i = 0; i < supportedLanguages.Count; i++)
         {
             languageVariants[i].language = (Languages)(i + 1);
         }
@@ -95,3 +99,4 @@ public abstract class QuestObject : ScriptableObject
 #endif
     }
 }
+    

@@ -14,8 +14,13 @@ BackText;Back;Назад
 NewGameConfirmText;Are you sure want to start a new game?;Вы действительно хотите начать новую игру?
 YesText;Yes;Да
 NoText;No;Нет
-ChangeLngToEnglishText;Set English;Английский
-ChangeLngToRussianText;Set Russian;Русский
+ChangeLngToEnglishText;English;Английский
+ChangeLngToRussianText;Russian;Русский
 AddDialogueText;Add Dialogue;Добавить диалог
 NewQuestText;New quest;Новое задание
 EndQuestText;Quest completed!;Задание выполнено!
+BestiaryTitleText;Bestiary;Бестиарий;
+CharacterNotesTitleText;Notes;Заметки;
+ItemsNotesTitleText;Items;Вещи
+WeaponNotesTitleText;Weapon;Оружие
+TakeWeaponText;Take;Взять;

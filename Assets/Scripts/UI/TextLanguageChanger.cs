@@ -15,39 +15,45 @@ public class TextLanguageChanger : MonoBehaviour
         UpdateUI();
     }
 
+    private void UpdateUI()
+    {
+        List<TextMeshProUGUI> texts = FindObjectsOfType<TextMeshProUGUI>(true).ToList();
+        List<Text> notTextMeshProTexts = FindObjectsOfType<Text>(true).ToList();
+
+        Dictionary<string, List<string>> UIText = CSVReader.GetFileInfo(UITextFile);
+
+        foreach (var text in texts)
+        {
+            if (text.name.Contains("ignoreCSV"))
+            {
+                continue;
+            }
+
+            if (UIText.TryGetValue(text.name, out List<string> translations))
+            {
+                int indexForTranslations = (int)Language.GetCurrentLanguage() - 1;
+                text.text = translations[indexForTranslations];
+            }
+            else
+            {
+                Debug.LogError("Missing translation for '" + text.name + "' in " + UITextFile.name);
+            }
+        }
+
+        foreach (var t in notTextMeshProTexts)
+        {
+            Debug.LogWarning("There is no TextMeshProUGUI component at " + t.name);
+        }
+    }
+
     // Button
     private void ChangeTextLanguage(string language)
     {
         if (language != Language.GetCurrentLanguage().ToString())
         {
             Language.SetNewLanguage((Languages)Enum.Parse(typeof(Languages), language));
-
             UpdateUI();
         }
         SaveLoadSystem.SaveGameData();
-    }
-
-    private void UpdateUI()
-    {
-        List<TextMeshProUGUI> texts = GetComponentsInChildren<TextMeshProUGUI>(true).ToList();
-        List<Text> notTextMeshProTexts = GetComponentsInChildren<Text>(true).ToList();
-
-        Dictionary<string, List<string>> UIText = CSVReader.GetFileInfo(UITextFile);
-
-        //for (int i = 1 + Enum.GetNames(typeof(Languages)).Length; i < UIText.Length; i++)
-        //{
-        //    foreach (var text in texts)
-        //    {
-        //        if (text.name == UIText[i])
-        //        {
-        //            text.text = UIText[i + (int)Language.GetCurrentLanguage()].Remove(0, 1);
-        //        }
-        //    }
-        //}
-
-        foreach (var t in notTextMeshProTexts)
-        {
-            Debug.LogWarning("Объект '" + t.name + "' не содержит компонент TextMeshProUGUI\nСмена языков работает не корректно");
-        }
     }
 }

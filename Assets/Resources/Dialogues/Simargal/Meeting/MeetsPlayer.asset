@@ -18,11 +18,9 @@ MonoBehaviour:
   requiredFact: 
   languageVariants:
   - language: 1
-    paragraphs:
-    - "DEFAULT TEXT \nLng: English. Paragraph #0"
+    paragraphs: []
   - language: 2
-    paragraphs:
-    - "DEFAULT TEXT \nLng: Russian. Paragraph #0"
+    paragraphs: []
   responseOptions:
   - requiredFactID: 
     languageVariants:
@@ -37,9 +35,9 @@ MonoBehaviour:
   - requiredFactID: 
     languageVariants:
     - language: 1
-      text: Fuck you
+      text: 
     - language: 2
-      text: "\u0418\u0434\u0438 \u043D\u0430\u0445\u0443\u0439"
+      text: 
     dialogueObject: {fileID: 0}
     questObject: {fileID: 0}
     addableFactID: 

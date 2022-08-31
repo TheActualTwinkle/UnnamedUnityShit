@@ -3631,6 +3631,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7769727021119623817, guid: 706235e73f8701b418912b1f322ae7ec,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706235e73f8701b418912b1f322ae7ec, type: 3}
 --- !u!1 &1690786422 stripped
@@ -5164,6 +5169,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 370948289788778900, guid: 53435b124cc9a9b40a7f7fb2166188ce,
+        type: 3}
+      propertyPath: m_Name
+      value: SpeakerNameText(ignoreCSV)
+      objectReference: {fileID: 0}
     - target: {fileID: 569383927209401467, guid: 53435b124cc9a9b40a7f7fb2166188ce,
         type: 3}
       propertyPath: m_IsActive
@@ -5223,6 +5233,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1081989086607558038, guid: 53435b124cc9a9b40a7f7fb2166188ce,
+        type: 3}
+      propertyPath: m_Name
+      value: ChoiceButtonText(ignoreCSV)
       objectReference: {fileID: 0}
     - target: {fileID: 1081989086607558038, guid: 53435b124cc9a9b40a7f7fb2166188ce,
         type: 3}
@@ -5374,6 +5389,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -2387
       objectReference: {fileID: 0}
+    - target: {fileID: 2128093942110634699, guid: 53435b124cc9a9b40a7f7fb2166188ce,
+        type: 3}
+      propertyPath: m_Name
+      value: DialogueCloudText(ignoreCSV)
+      objectReference: {fileID: 0}
     - target: {fileID: 2206804827659774265, guid: 53435b124cc9a9b40a7f7fb2166188ce,
         type: 3}
       propertyPath: m_IsActive
@@ -5496,6 +5516,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2829972855650576231, guid: 53435b124cc9a9b40a7f7fb2166188ce,
         type: 3}
+      propertyPath: m_Name
+      value: ChoiceButtonText(ignoreCSV)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2829972855650576231, guid: 53435b124cc9a9b40a7f7fb2166188ce,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -5508,6 +5533,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2995663291706069090, guid: 53435b124cc9a9b40a7f7fb2166188ce,
+        type: 3}
+      propertyPath: m_Name
+      value: ChoiceButtonText(ignoreCSV)
       objectReference: {fileID: 0}
     - target: {fileID: 2995663291706069090, guid: 53435b124cc9a9b40a7f7fb2166188ce,
         type: 3}
@@ -6466,6 +6496,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7524281242259393426, guid: 53435b124cc9a9b40a7f7fb2166188ce,
         type: 3}
+      propertyPath: m_Name
+      value: ChoiceButtonText(ignoreCSV)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7524281242259393426, guid: 53435b124cc9a9b40a7f7fb2166188ce,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -6593,6 +6628,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8307761308082140765, guid: 53435b124cc9a9b40a7f7fb2166188ce,
+        type: 3}
+      propertyPath: m_Name
+      value: QuestNameText(ignoreCSV)
       objectReference: {fileID: 0}
     - target: {fileID: 8307761308082140765, guid: 53435b124cc9a9b40a7f7fb2166188ce,
         type: 3}
