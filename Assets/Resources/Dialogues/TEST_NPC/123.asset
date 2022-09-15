@@ -15,6 +15,7 @@ MonoBehaviour:
   speakerName: TEST_NPC
   dialogueID: 123
   requiredRelationshipPoints: 0
+  requiredFact: 
   languageVariants:
   - language: 1
     paragraphs:

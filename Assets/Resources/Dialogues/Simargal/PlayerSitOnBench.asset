@@ -18,9 +18,9 @@ MonoBehaviour:
   requiredFact: 
   languageVariants:
   - language: 1
-    paragraphs: []
+    paragraphs:
+    - "DEFAULT_TEXT \nDialgoue ID: PlayerSitOnBench \nLng: English. Paragraph #0"
   - language: 2
-    paragraphs: []
-  - language: 3
-    paragraphs: []
+    paragraphs:
+    - "DEFAULT_TEXT \nDialgoue ID: PlayerSitOnBench \nLng: Russian. Paragraph #0"
   responseOptions: []

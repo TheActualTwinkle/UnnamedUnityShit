@@ -18,16 +18,19 @@ MonoBehaviour:
   requiredFact: 
   languageVariants:
   - language: 1
-    paragraphs: []
+    paragraphs:
+    - Hello, what`s your name
   - language: 2
-    paragraphs: []
+    paragraphs:
+    - "\u041F\u0440\u0438\u0432\u0435\u0442, \u043A\u0430\u043A \u0442\u0435\u0431\u044F
+      \u0437\u043E\u0432\u0443\u0442"
   responseOptions:
   - requiredFactID: 
     languageVariants:
     - language: 1
-      text: 
+      text: I`m veyyz
     - language: 2
-      text: 
+      text: "\u042F \u0432\u0438\u0443\u0437"
     dialogueObject: {fileID: 11400000, guid: d7c8b9b0a6dbba5448d89142d442768f, type: 2}
     questObject: {fileID: 11400000, guid: d46e8864cb578d141a5ce329eb180790, type: 2}
     addableFactID: simargal_know_player
@@ -35,9 +38,9 @@ MonoBehaviour:
   - requiredFactID: 
     languageVariants:
     - language: 1
-      text: 
+      text: Fuck you
     - language: 2
-      text: 
+      text: "\u041F\u043E\u0448\u0435\u043B \u043D\u0430\u0445\u0443\u0439"
     dialogueObject: {fileID: 0}
     questObject: {fileID: 0}
     addableFactID: 

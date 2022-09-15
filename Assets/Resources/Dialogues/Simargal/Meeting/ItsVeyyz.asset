@@ -15,6 +15,7 @@ MonoBehaviour:
   speakerName: Simargal
   dialogueID: Meeting/ItsVeyyz
   requiredRelationshipPoints: 0
+  requiredFact: 
   languageVariants:
   - language: 1
     paragraphs:

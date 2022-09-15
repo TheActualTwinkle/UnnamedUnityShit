@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -16,11 +17,6 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private float rightLimit;
     [SerializeField] private float topLimit;
     [SerializeField] private float botLimit;
-
-    private void OnValidate()
-    {
-        Gizmos.color = Color.red;
-    }
 
     private void Start()
     {

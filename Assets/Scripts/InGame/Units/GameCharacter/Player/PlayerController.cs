@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
-[RequireComponent(typeof(QuestReceiver))]
+[RequireComponent(typeof(QuestReceiver), typeof(Rigidbody2D), typeof(Animator))]
 public class PlayerController : GameCharacter
 {
     public static PlayerController Instance { get; private set; }
@@ -41,7 +43,7 @@ public class PlayerController : GameCharacter
     }
 
     private void Start()
-    {      
+    {
         if (Instance == null)
         {
             Instance = this;

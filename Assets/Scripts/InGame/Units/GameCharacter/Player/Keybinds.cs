@@ -25,6 +25,7 @@ public class Keybinds
         keyBinds.Add(Actions.Attack2, KeyCode.Mouse1);
 
         keyBinds.Add(Actions.Codex, KeyCode.J);
+        keyBinds.Add(Actions.Map, KeyCode.M);
     }
 
     public static void BindAKey(Actions action, KeyCode keyCode)
@@ -82,6 +83,7 @@ public enum Actions
     Attack1,
     Attack2,
     Codex,
+    Map,
 }
 
 public enum Axis

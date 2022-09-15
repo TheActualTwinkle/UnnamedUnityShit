@@ -102,9 +102,9 @@ public class DialogueObject : ScriptableObject
         {
             for (int i = 0; i < variant.Paragraphs.Count; i++)
             {
-                if (string.IsNullOrEmpty(variant.Paragraphs[i]))
+                if (string.IsNullOrEmpty(variant.Paragraphs[i]) || variant.Paragraphs[i].Contains("DEFAULT_TEXT"))
                 {
-                    variant.Paragraphs[i] = "DEFAULT TEXT \nLng: " + variant.language + ". Paragraph #" + i;
+                    variant.Paragraphs[i] = $"DEFAULT_TEXT \nDialgoue ID: {dialogueID} \nLng: {variant.language}. Paragraph #{i}";
                 }
             }
         }

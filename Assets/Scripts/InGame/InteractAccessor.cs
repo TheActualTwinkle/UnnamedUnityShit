@@ -34,6 +34,9 @@ public class InteractAccessor
         else if (CutscenePlayer.Instance.IsPlaying == true)
             return true;
 
+        else if (Map.IsOpen == true)
+            return true;
+
         else
             return false;
     }

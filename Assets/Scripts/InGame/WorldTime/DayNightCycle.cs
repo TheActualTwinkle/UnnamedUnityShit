@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.Rendering.Universal;
 
 public class DayNightCycle : MonoBehaviour
 {
@@ -34,22 +34,7 @@ public class DayNightCycle : MonoBehaviour
     {        
         timeStep = Time.fixedDeltaTime / gameHourDuration;
 
-        if (timeStep > 0)
-        {
-            presentTime += timeStep;
-            if (presentTime >= 24f)
-            {
-                presentTime = 0f;
-                HourPassed?.Invoke(this, new TimeInfo(presentTime));
-            }
-
-            // If new hour began.
-            if ((int)(presentTime - timeStep) != (int)presentTime)
-            {
-                HourPassed?.Invoke(this, new TimeInfo(presentTime));
-            }
-        }
-
+        IncreaceTime();
         SetupBrightness();
     }
 
@@ -65,5 +50,21 @@ public class DayNightCycle : MonoBehaviour
         }
 
         globalLight.intensity = lightIntensity;
+    }
+
+    private void IncreaceTime()
+    {
+        presentTime += timeStep;
+        if (presentTime >= 24f)
+        {
+            presentTime = 0f;
+            HourPassed?.Invoke(this, new TimeInfo(presentTime));
+        }
+
+        // If new hour began.
+        if ((int)(presentTime - timeStep) != (int)presentTime)
+        {
+            HourPassed?.Invoke(this, new TimeInfo(presentTime));
+        }
     }
 }

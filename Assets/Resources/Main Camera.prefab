@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3010257903998662131}
   - component: {fileID: 2225702669439475527}
   - component: {fileID: 9028472599554391540}
+  - component: {fileID: 2969955555020573156}
   - component: {fileID: 27941879910307878}
   m_Layer: 0
   m_Name: Main Camera
@@ -33,6 +34,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -145,7 +147,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 35, y: 20}
+  m_Size: {x: 40, y: 25}
   m_EdgeRadius: 0
 --- !u!114 &2225702669439475527
 MonoBehaviour:
@@ -159,9 +161,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ComponentVersion: 1
   m_AssetsPPU: 64
   m_RefResolutionX: 1920
   m_RefResolutionY: 1080
+  m_CropFrame: 0
+  m_GridSnapping: 2
   m_UpscaleRT: 1
   m_PixelSnapping: 0
   m_CropFrameX: 0
@@ -179,14 +184,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4248e36ae580d6459da112f91d311cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneChanger: {fileID: 0}
   cameraSpeed: 1e+11
   leftLimit: 5
   rightLimit: 30
   topLimit: 10
   botLimit: 20
+--- !u!114 &2969955555020573156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5761609698415770225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 360bcc9ee45a2604690b7608278ef76c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &27941879910307878
 Animator:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -199,6 +217,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1

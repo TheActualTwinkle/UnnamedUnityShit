@@ -10,6 +10,7 @@ public class Codex : MonoBehaviour
     public static bool IsOpen { get => isOpen; }
 
     [SerializeField] private GameObject bookmarkPageContainer;
+
     [ReadOnly]
     [SerializeField] private GameObject bookmarkPage;
 
@@ -23,24 +24,28 @@ public class Codex : MonoBehaviour
     private void Update()
     {
         if (InteractAccessor.CanInteract)
+        {
             if (Input.GetKeyDown(Keybinds.KeyBinds[Actions.Codex]))
-                OpenCodex();
+            {
+                Open();
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape) && isOpen)
-            CloseCodex();
+        {
+            Close();
+        }
     }
 
-    public void OpenCodex()
+    private void Open()
     {
         isOpen = true;
 
-        animator.ResetTrigger("EndCodex");
         animator.SetTrigger("StartCodex");
     }
 
-    public void CloseCodex()
+    private void Close()
     {
-        animator.ResetTrigger("StartCodex");
         animator.SetTrigger("EndCodex");
     }
 
@@ -51,7 +56,7 @@ public class Codex : MonoBehaviour
     }
 
     // Button.
-    private void UnBookmarkPage()
+    private void UnbookmarkPage()
     {
         bookmarkPage = null;
     }
