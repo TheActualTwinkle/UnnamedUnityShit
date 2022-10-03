@@ -11,46 +11,47 @@ public abstract class DialogueTrigger : Unit
     [SerializeField] private int relationshipWithPlayer;
     public int RelationshipWithPlayer { get => relationshipWithPlayer; }
 
-    private List<DialogueObject> availableDialogues;
-    public List<DialogueObject> AvailableDialogues { get => availableDialogues; }
+    [SerializeField] private Queue<DialogueObject> availableDialogues;
+    public Queue<DialogueObject> AvailableDialogues { get => availableDialogues; }
 
     [SerializeField] private Animator handlerAnimator;
 
-    private DayNightCycle dayNightCycle;
-    private UnitDialogueHandler unitDialogueHandler;
+    private DialogueHandler dialogueHandler;
 
     protected virtual void Start()
     {
-        dayNightCycle = FindObjectOfType<DayNightCycle>();
-        unitDialogueHandler = GetComponentInChildren<UnitDialogueHandler>();
+        dialogueHandler = GetComponentInChildren<DialogueHandler>();
 
-        availableDialogues = new List<DialogueObject>();
+        relationshipWithPlayer = LoadNPCPoints();
+        availableDialogues = new Queue<DialogueObject>(LoadAvailableDialogues());
 
-        if (NewGameTuner.IsNewGame == false)
+        if (availableDialogues == null)
         {
-            relationshipWithPlayer = LoadRelationshipPoints();
-            availableDialogues = LoadAvailableDialogues().ToList();
+            availableDialogues = new Queue<DialogueObject>();
         }
 
-        if (availableDialogues.Count > 0)
+        if (availableDialogues?.Count > 0)
         {
-            handlerAnimator.SetBool("isEnable", true);
+            handlerAnimator.SetBool("hasDialogues", true);
         }
-
-        dayNightCycle.HourPassed += OnHourPassed;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(Keybinds.KeyBinds[Actions.Use]) && InteractAccessor.CanInteract)
+        if (Input.GetKeyDown(Keybinds.KeyBinds[Actions.Use]) && CanStartDialogue() == true)
         {
-            TryTriggerDialogue();
+            dialogueHandler.StartDialogue(availableDialogues.Peek());
         }
     }
 
-    private void OnDestroy()
+    private void OnEnable()
     {
-        dayNightCycle.HourPassed -= OnHourPassed;
+        DayNightCycle.HourPassedEvent += OnHourPassed;
+    }
+
+    private void OnDisable()
+    {
+        DayNightCycle.HourPassedEvent -= OnHourPassed;
     }
 
     public string GetDialoguesPath()
@@ -61,66 +62,49 @@ public abstract class DialogueTrigger : Unit
     public void ChangeRelationshipWithPlayer(int value)
     {
         relationshipWithPlayer = Mathf.Clamp(relationshipWithPlayer + value, -100, 100);
-
-        SaveLoadSystem.SaveNPCData(this);
+        SaveNPCData();
     }
 
-    // Void `couse of button GUI (Fix on release)
-    public void TryAddDialogue(DialogueObject dialogue)
+    public bool TryAddDialogue(DialogueObject dialogue)
     {
         if (IsDialogueValid(dialogue))
         {
-            handlerAnimator.SetBool("isEnable", true);
+            handlerAnimator.SetBool("hasDialogues", true);
 
-            availableDialogues.Add(dialogue);
+            availableDialogues.Enqueue(dialogue);
 
             SaveAvailableDialoguesDataArray();
 
-            //return true;
+            return true;
         }
 
-        //return false;
+        return false;
     }
 
     public void RemoveFirstAvailableDialogue()
     {
-        RemoveAvailableDialogue(availableDialogues?.First());
-    }
-
-    protected abstract void OnHourPassed(object s, TimeInfo timeInfo);
-
-    private void RemoveAvailableDialogue(DialogueObject dialogueObject)
-    {
-        availableDialogues.Remove(dialogueObject);
+        availableDialogues.Dequeue();
 
         if (availableDialogues.Count <= 0)
         {
-            handlerAnimator.SetBool("isEnable", false);
+            handlerAnimator.SetBool("hasDialogues", false);
         }
-
-        RemoveUnvalidDialogues();
 
         SaveAvailableDialoguesDataArray();
     }
 
-    private void RemoveUnvalidDialogues()
-    {
-        var alblDialogues = availableDialogues.ToArray();
-        foreach (var dialogue in alblDialogues)
-        {
-            if (IsDialogueValid(dialogue) == false)
-                RemoveAvailableDialogue(dialogue);
-        }
-    }
+    protected abstract void OnHourPassed(TimeInfo timeInfo);
 
-    private bool TryTriggerDialogue()
+    private bool CanStartDialogue()
     {
-        if (UnitDialogueHandler.IsReading == false && unitDialogueHandler.InDialogueRange && availableDialogues.Count > 0)
+        if (InteractAccessor.CanInteract && DialogueHandler.IsReading == false && dialogueHandler.InDialogueRange && availableDialogues.Count > 0)
         {
-            unitDialogueHandler.StartDialogue(availableDialogues[0]);
             return true;
         }
-        return false;
+        else
+        {
+            return false;
+        }
     }
 
     private bool IsDialogueValid(DialogueObject dialogue)
@@ -174,10 +158,15 @@ public abstract class DialogueTrigger : Unit
         return dialogues.ToArray();
     }
 
-    private int LoadRelationshipPoints()
+    private void SaveNPCData()
     {
-        NPCData d = SaveLoadSystem.LoadNPCData(this);
+        SaveLoadSystem.SaveNPCData(this);
+    }
 
-        return d.relationshipWithPlayer;
+    private int LoadNPCPoints()
+    {
+        NPCData data = SaveLoadSystem.LoadNPCData(this);
+
+        return data.relationshipWithPlayer;
     }
 }

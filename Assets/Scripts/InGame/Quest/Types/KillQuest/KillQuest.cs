@@ -18,20 +18,16 @@ public class KillQuest : QuestObject
     [SerializeField] private int currentKills;
     public int CurrentKills { get => currentKills; }
 
-    public void OnUnitDeath(object s, EventArgs e)
+    public void OnUnitDeath(Unit unit)
     {
-        if (WhomToKill.GetType() == s.GetType())
+        if (WhomToKill.GetType() == unit.GetType())
         {
-            AddCurrentKills(1);
+            currentKills++;
+            if (currentKills >= needKills)
+            {
+                CallQuestCompletedEvent();
+            }
         }
-    }
-
-    private void AddCurrentKills(int value)
-    {
-        currentKills += value;
-
-        if (currentKills >= needKills)
-            QuestCompleted?.Invoke(this, EventArgs.Empty);
     }
 
     [ContextMenu("ResetCurrentKills")]

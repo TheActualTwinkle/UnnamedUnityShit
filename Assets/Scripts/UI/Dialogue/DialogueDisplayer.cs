@@ -8,7 +8,7 @@ using System.Linq;
 
 public class DialogueDisplayer : MonoBehaviour
 {
-    public static EventHandler DialogueDisplayed;
+    public static event Action DialogueDisplayedEvent;
 
     private static bool isParagraphShowed;
     private static bool canSkipParagraph;
@@ -51,7 +51,7 @@ public class DialogueDisplayer : MonoBehaviour
 
     private void Update()
     {
-        if (UnitDialogueHandler.IsReading && Input.anyKeyDown && canSkipParagraph)
+        if (DialogueHandler.IsReading && Input.anyKeyDown && canSkipParagraph)
         {
             if (isParagraphShowed)
                 ShowNextParagraph();
@@ -92,10 +92,9 @@ public class DialogueDisplayer : MonoBehaviour
 
     private void ShowNextParagraph()
     {
-
         if (paragraphs.Count <= 0)
         {
-            DialogueDisplayed?.Invoke(this, EventArgs.Empty);
+            DialogueDisplayedEvent?.Invoke();
             return;
         }
 

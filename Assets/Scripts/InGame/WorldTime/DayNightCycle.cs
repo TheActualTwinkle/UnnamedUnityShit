@@ -5,7 +5,9 @@ using UnityEngine.Rendering.Universal;
 
 public class DayNightCycle : MonoBehaviour
 {
-    public EventHandler<TimeInfo> HourPassed;
+    public static event Action<TimeInfo> HourPassedEvent;
+
+    public static DayNightCycle Instance { get; private set; }
 
     [SerializeField] private Light2D globalLight;
 
@@ -27,6 +29,16 @@ public class DayNightCycle : MonoBehaviour
 
     private void Start()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         presentTime = DateTime.Now.Hour + DateTime.Now.Minute / 60f;
     }
 
@@ -58,13 +70,13 @@ public class DayNightCycle : MonoBehaviour
         if (presentTime >= 24f)
         {
             presentTime = 0f;
-            HourPassed?.Invoke(this, new TimeInfo(presentTime));
+            HourPassedEvent?.Invoke(new TimeInfo(presentTime));
         }
 
         // If new hour began.
         if ((int)(presentTime - timeStep) != (int)presentTime)
         {
-            HourPassed?.Invoke(this, new TimeInfo(presentTime));
+            HourPassedEvent?.Invoke(new TimeInfo(presentTime));
         }
     }
 }

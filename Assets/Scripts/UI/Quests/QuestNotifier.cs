@@ -7,11 +7,13 @@ using TMPro;
 [RequireComponent(typeof(Animator))]
 public class QuestNotifier : MonoBehaviour
 {
+    [SerializeField] private QuestReceiver questReceiver;
+
     [SerializeField] private TextMeshProUGUI newQuestText;
     [SerializeField] private TextMeshProUGUI endQuestText;
     [SerializeField] private TextMeshProUGUI questNameText;
 
-    private Queue<QuestObject> unnotifiedNewQuests = new Queue<QuestObject>();
+    private Queue<QuestObject> unnotifiedStartQuests = new Queue<QuestObject>();
     private Queue<QuestObject> unnotifiedEndQuests = new Queue<QuestObject>();
 
     private Animator animator;
@@ -21,16 +23,28 @@ public class QuestNotifier : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void NotifyAboutNewQuest(QuestObject quest)
+    private void OnEnable()
+    {
+        questReceiver.QuestStartEvent += NotifyAboutStartQuest;
+        questReceiver.QuestEndEvent += NotifyAboutEndQuest;
+    }
+
+    private void OnDisable()
+    {
+        questReceiver.QuestStartEvent -= NotifyAboutStartQuest;
+        questReceiver.QuestEndEvent -= NotifyAboutEndQuest;
+    }
+
+    public void NotifyAboutStartQuest(QuestObject quest)
     {
         if (animator.GetCurrentAnimatorClipInfo(0).First().clip.name == "Idle")
         {
-            SetupNotifier(quest);
-            animator.SetTrigger("NewQuest");
+            SetQuestNameText(quest);
+            animator.SetTrigger("StartQuest");
         }
         else
         {
-            unnotifiedNewQuests.Enqueue(quest);
+            unnotifiedStartQuests.Enqueue(quest);
         }
     }
 
@@ -38,7 +52,7 @@ public class QuestNotifier : MonoBehaviour
     {
         if (animator.GetCurrentAnimatorClipInfo(0).First().clip.name == "Idle")
         {
-            SetupNotifier(quest);
+            SetQuestNameText(quest);
             animator.SetTrigger("EndQuest");
         }
         else
@@ -55,14 +69,14 @@ public class QuestNotifier : MonoBehaviour
             NotifyAboutEndQuest(unnotifiedEndQuests.Peek());
             unnotifiedEndQuests.Dequeue();
         }        
-        else if (unnotifiedNewQuests.Count > 0)
+        else if (unnotifiedStartQuests.Count > 0)
         {
-            NotifyAboutNewQuest(unnotifiedNewQuests.Peek());
-            unnotifiedNewQuests.Dequeue();
+            NotifyAboutStartQuest(unnotifiedStartQuests.Peek());
+            unnotifiedStartQuests.Dequeue();
         }
     }
 
-    private void SetupNotifier(QuestObject quest)
+    private void SetQuestNameText(QuestObject quest)
     {
         questNameText.text = quest.LanguageVariants.Where(x => x.language == Language.GetCurrentLanguage()).First().QuestName;
     }

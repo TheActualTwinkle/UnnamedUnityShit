@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2586240512246635591}
   - component: {fileID: -4730069854258952830}
   m_Layer: 0
-  m_Name: DialogueCloud
+  m_Name: DialogueDisplayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

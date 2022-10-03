@@ -10,7 +10,7 @@ public class InteractAccessor
 
     private static bool IsSomethingBolockingInteraction()
     {
-        if (UnitDialogueHandler.IsReading == true)
+        if (DialogueHandler.IsReading == true)
             return true;
 
         else if (Codex.IsOpen == true)

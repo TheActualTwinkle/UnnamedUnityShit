@@ -22,7 +22,7 @@ public class GameSavedNotifier : MonoBehaviour
         SaveLoadSystem.DataSavedEvent -= OnGameSaved;
     }
 
-    private void OnGameSaved(object s, EventArgs e)
+    private void OnGameSaved()
     {
         if (Time.realtimeSinceStartup - realtimeSinceNotify >= notifyInterval)
         {

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 [RequireComponent(typeof(QuestReceiver), typeof(Rigidbody2D), typeof(Animator))]
 public class PlayerController : GameCharacter
@@ -88,7 +87,7 @@ public class PlayerController : GameCharacter
 
     protected override void Die()
     {
-        DeathEvent?.Invoke(this, EventArgs.Empty);
+        CallDeathEvent();
         StartCoroutine(PlayerDie());
     }
 

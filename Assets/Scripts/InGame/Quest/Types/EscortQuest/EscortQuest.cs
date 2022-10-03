@@ -22,11 +22,11 @@ public class EscortQuest : QuestObject
         whereToEscort.z = 0f;
     }
 
-    public void OnEscorted(object s, EscortQuestInfo data)
+    public void OnEscorted(EscortQuestInfo data)
     {
         if (data.sceneToEscort == sceneToEscort && data.whereToEscort == whereToEscort && data.whomToEscort.GetType() == whomToEscort.GetType())
         {
-            QuestCompleted?.Invoke(this, EventArgs.Empty);
+            CallQuestCompletedEvent();
         }
     }
 }

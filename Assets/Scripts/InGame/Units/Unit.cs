@@ -22,8 +22,8 @@ public abstract class Unit : MonoBehaviour
 
     public readonly float minSpeed = 1f;
 
-    public static EventHandler DeathEvent;
-    public static EventHandler<float> DamageReceivedEvent;
+    public static event Action<Unit> DeathEvent;
+    public static event Action<float> DamageReceivedEvent;
 
     private void OnValidate()
     {
@@ -43,7 +43,7 @@ public abstract class Unit : MonoBehaviour
 
         currentHp -= damage;
 
-        DamageReceivedEvent?.Invoke(this, damage);
+        DamageReceivedEvent?.Invoke(damage);
 
         if (currentHp <= 0)
             Die();
@@ -70,7 +70,7 @@ public abstract class Unit : MonoBehaviour
     
     protected virtual void Die()
     {
-        DeathEvent?.Invoke(this, EventArgs.Empty);
+        DeathEvent?.Invoke(this);
 
         try
         {
@@ -102,5 +102,10 @@ public abstract class Unit : MonoBehaviour
             player.maxHp = playerData.maxHp;
             player.speed = playerData.speed;
         }
+    }
+
+    protected void CallDeathEvent()
+    {
+        DeathEvent?.Invoke(this);
     }
 }

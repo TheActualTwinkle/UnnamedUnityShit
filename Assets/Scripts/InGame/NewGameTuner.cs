@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class NewGameTuner : MonoBehaviour
 {
-    public static bool IsNewGame { get { return !IsPlayerSaveExist(); } }
-    public static bool IsFirstExecute { get { return !IsGameSaveExist(); } }
+    public static bool IsNewGame => !IsPlayerSaveExist();
+    public static bool IsFirstExecute => !IsGameSaveExist();
 
     [SerializeField] private List<DialogueObject> firstDialogues;
 
@@ -25,13 +25,11 @@ public class NewGameTuner : MonoBehaviour
             Directory.CreateDirectory(Application.persistentDataPath + "/saves/Facts");
             Directory.CreateDirectory(Application.persistentDataPath + "/saves/QuestReceiver");
         }
-        else
+
+        if (IsNewGame == false)
         {
             var playerData = SaveLoadSystem.LoadPlayerData();
-            if (playerData != null)
-            {
-                RespawnPoint.SetRespawnPosition(playerData.respawnPos);
-            }
+            RespawnPoint.SetRespawnPosition(playerData?.respawnPos);
         }
     }
 
@@ -63,7 +61,7 @@ public class NewGameTuner : MonoBehaviour
             dialoguePairs.Add(dialogue.SpeakerName, firstDialogues.Where(d => d.SpeakerName == dialogue.SpeakerName).ToList());
         }
 
-        List<DialogueTrigger> activeNPCs = FindObjectsOfType<DialogueTrigger>().ToList();
+        List<DialogueTrigger> activeNPCs = FindObjectsOfType<DialogueTrigger>(true).ToList();
 
         foreach (var npc in activeNPCs)
         {
@@ -81,8 +79,11 @@ public class NewGameTuner : MonoBehaviour
         foreach (var pair in dialoguePairs)
         {
             List<string> NPCDialogueIDs = SaveLoadSystem.LoadNPCDialogueData(pair.Key)?.NPCDialogueIDs;
+
             if (NPCDialogueIDs == null)
+            {
                 NPCDialogueIDs = new List<string>();
+            }
 
             List<DialogueObject> dialoguesToAdd;
             if (dialoguePairs.TryGetValue(pair.Key, out dialoguesToAdd))

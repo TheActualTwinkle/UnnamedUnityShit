@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Collider2D))]
 public class EscortZone : MonoBehaviour
 {
-    public static EventHandler<EscortQuestInfo> EscortedEvent;
+    public static event Action<EscortQuestInfo> EscortedEvent;
 
     [SerializeField] private EscortQuest quest;
     public EscortQuest Quest => quest;
@@ -14,7 +14,7 @@ public class EscortZone : MonoBehaviour
     {
         if (collision.TryGetComponent(out Unit unit))
         {
-            EscortedEvent?.Invoke(this, new EscortQuestInfo(unit, transform.position, SceneManager.GetActiveScene().name));
+            EscortedEvent?.Invoke(new EscortQuestInfo(unit, transform.position, SceneManager.GetActiveScene().name));
         }
     }
 

@@ -4,41 +4,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Animator), typeof(Renderer))]
-public class UnitDialogueHandler : MonoBehaviour
+[RequireComponent(typeof(Animator), typeof(Renderer), typeof(DialogueCloudImage))]
+public class DialogueHandler : MonoBehaviour
 {
     private static bool isReading;
-    public static bool IsReading { get { return isReading; } }
+    public static bool IsReading => isReading;
 
     private static DialogueTrigger currentSpeaker;
-    public static DialogueTrigger CurrentSpeaker { get => currentSpeaker; }
+    public static DialogueTrigger CurrentSpeaker => currentSpeaker;
 
     private bool inDialogueRange;
-    public bool InDialogueRange { get { return inDialogueRange; } }
+    public bool InDialogueRange => inDialogueRange;
 
-    [SerializeField] private SpriteRenderer sprite;
+    private DialogueCloudImage dialogueCloudImage;
     private DialogueTrigger dialogueTrigger;
     private DialogueDisplayer dialogueDisplayer;
 
     private Animator animator;
 
-    private Color newCloudColor;
-
-    [SerializeField] private float colorLerpTime;
-
     private void Start()
     {
         animator = GetComponent<Animator>();
 
+        dialogueCloudImage = GetComponent<DialogueCloudImage>();
         dialogueTrigger = GetComponentInParent<DialogueTrigger>();
         dialogueDisplayer = FindObjectOfType<DialogueDisplayer>();
-
-        newCloudColor = sprite.color;
-    }
-
-    private void FixedUpdate()
-    {
-        LerpToNewColor(newCloudColor);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -46,7 +36,7 @@ public class UnitDialogueHandler : MonoBehaviour
         if (collision.TryGetComponent(out PlayerController p))
         {
             inDialogueRange = true;
-            newCloudColor = new Color(1, 1, 1, 1f);
+            dialogueCloudImage.MakeApparent();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -54,17 +44,17 @@ public class UnitDialogueHandler : MonoBehaviour
         if (collision.TryGetComponent(out PlayerController p))
         {
             inDialogueRange = false;
-            newCloudColor = new Color(1, 1, 1, 0.4f);
+            dialogueCloudImage.MakeTransparent(0.4f);
         }
     }
 
     public void StartDialogue(DialogueObject dialogueObject)
     {
-        DialogueDisplayer.DialogueDisplayed += EndDialogue;
+        DialogueDisplayer.DialogueDisplayedEvent += EndDialogue;
 
         currentSpeaker = dialogueTrigger;
 
-        newCloudColor = new Color(1, 1, 1, 0.4f);
+        dialogueCloudImage.MakeTransparent(0.4f);
         isReading = true;
 
         dialogueDisplayer.DisplayDialogue(dialogueObject);
@@ -72,9 +62,9 @@ public class UnitDialogueHandler : MonoBehaviour
         animator.SetBool("isReading", isReading);
     }
 
-    private void EndDialogue(object sender, EventArgs e)
+    private void EndDialogue()
     {
-        DialogueDisplayer.DialogueDisplayed -= EndDialogue;
+        DialogueDisplayer.DialogueDisplayedEvent -= EndDialogue;
 
         currentSpeaker = null;
 
@@ -83,10 +73,5 @@ public class UnitDialogueHandler : MonoBehaviour
 
         isReading = false;
         animator.SetBool("isReading", isReading);
-    }
-
-    private void LerpToNewColor(Color newColor)
-    {
-        sprite.color = Color.Lerp(sprite.color, newColor, colorLerpTime * Time.fixedDeltaTime);
     }
 }

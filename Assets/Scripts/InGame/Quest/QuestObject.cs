@@ -20,9 +20,9 @@ public abstract class QuestObject : ScriptableObject
     [SerializeField] private bool isCompleted;
 
     [SerializeField] private List<QuestLanguageVariant> languageVariants;
-    public List<QuestLanguageVariant> LanguageVariants { get => languageVariants; }
+    public List<QuestLanguageVariant> LanguageVariants => languageVariants;
 
-    public EventHandler QuestCompleted;
+    public event Action<QuestObject> QuestCompletedEvent;
 
     private void Awake()
     {
@@ -34,6 +34,11 @@ public abstract class QuestObject : ScriptableObject
     {
         SetID();
         SetupLanguageVariants();
+    }
+
+    protected void CallQuestCompletedEvent()
+    {
+        QuestCompletedEvent?.Invoke(this);
     }
 
     private void SetupLanguageVariants()

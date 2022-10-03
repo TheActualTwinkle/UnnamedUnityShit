@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TEST_NPC : DialogueTrigger
 {
-    protected override void OnHourPassed(object s, TimeInfo timeInfo)
+    protected override void OnHourPassed(TimeInfo timeInfo)
     {
         //throw new NotImplementedException();
     }

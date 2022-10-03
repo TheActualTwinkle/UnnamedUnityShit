@@ -53,7 +53,7 @@ public class Map : MonoBehaviour
     {
         foreach (var mapElement in mapElements)
         {
-
+            // todo
         }
     }
 

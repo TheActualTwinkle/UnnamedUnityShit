@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(QuestReceiver))]
 public class QuestHandler : MonoBehaviour
 {
     [ReadOnly]
@@ -12,6 +13,16 @@ public class QuestHandler : MonoBehaviour
     private List<GatherQuest> gatherQuests = new List<GatherQuest>();
     private List<KillQuest> killQuests = new List<KillQuest>();
     private List<DeliveryQuest> deliveryQuests = new List<DeliveryQuest>();
+
+    private void OnEnable()
+    {
+        questReceiver.QuestStartEvent += StartHandleQuest;
+    }
+
+    private void OnDisable()
+    {
+        questReceiver.QuestStartEvent -= StartHandleQuest;
+    }
 
     // GENERAL -------------------------------------------
 
@@ -36,7 +47,7 @@ public class QuestHandler : MonoBehaviour
                 break;
         }
 
-        quest.QuestCompleted += OnQuestCompleted;
+        quest.QuestCompletedEvent += OnQuestCompleted;
     }
 
     private void StopHandleQuest(QuestObject quest)
@@ -60,7 +71,7 @@ public class QuestHandler : MonoBehaviour
                 break;
         }
 
-        quest.QuestCompleted -= OnQuestCompleted;
+        quest.QuestCompletedEvent -= OnQuestCompleted;
     }
 
     // START ---------------------------------------------
@@ -113,11 +124,9 @@ public class QuestHandler : MonoBehaviour
 
     // OTEHR ---------------------------------------------
 
-    private void OnQuestCompleted(object s, EventArgs e)
+    private void OnQuestCompleted(QuestObject quest)
     {
-        QuestObject quest = (QuestObject)s;
-
         StopHandleQuest(quest);
-        questReceiver.RemoveQuest(quest);
+        questReceiver.EndQuest(quest);
     }
 }

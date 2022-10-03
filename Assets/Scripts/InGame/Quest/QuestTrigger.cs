@@ -4,12 +4,14 @@
 public class QuestTrigger : MonoBehaviour
 {
     [SerializeField] private QuestObject questToActivate;
-    public QuestObject QuestToActivate { get => questToActivate; }
+    public QuestObject QuestToActivate => questToActivate;
 
     private void Start()
     {
         if (NewGameTuner.IsNewGame == false)
+        {
             questToActivate = Resources.Load<QuestObject>("Quests/Objects" + SaveLoadSystem.LoadQuestTriggerData(this).questID);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

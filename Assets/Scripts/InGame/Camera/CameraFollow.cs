@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -45,12 +44,9 @@ public class CameraFollow : MonoBehaviour
 
     private void Update()
     {
-        if (sceneChanger?.NonPlayerScenes.Select(x => x.name).Contains(SceneManager.GetActiveScene().name) == false)
+        if (PlayerController.Instance != null)
         {
-            if (PlayerController.Instance != null)
-            {
-                FollowTarget(PlayerController.Instance.transform);
-            }
+            FollowTarget(PlayerController.Instance.transform);
         }
     }
 

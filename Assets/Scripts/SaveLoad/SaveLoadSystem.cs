@@ -19,7 +19,7 @@ public class SaveLoadSystem
     public readonly static string questTriggerDataSavePath = Application.persistentDataPath + "/saves/QuestTriggers";
     public readonly static string escortZoneDataSavePath = Application.persistentDataPath + "/saves/EscortZone";
 
-    public static EventHandler DataSavedEvent;
+    public static event Action DataSavedEvent;
 
     private static BinaryFormatter bf = new BinaryFormatter();  
 
@@ -33,7 +33,7 @@ public class SaveLoadSystem
 
         fileStream.Close();
 
-        DataSavedEvent?.Invoke(null, EventArgs.Empty);
+        DataSavedEvent?.Invoke();
     }
 
     public static GameData LoadGameData()
@@ -65,7 +65,7 @@ public class SaveLoadSystem
 
         fileStream.Close();
 
-        DataSavedEvent?.Invoke(null, EventArgs.Empty);
+        DataSavedEvent?.Invoke();
     }
 
     public static PlayerData LoadPlayerData()
@@ -97,7 +97,7 @@ public class SaveLoadSystem
 
         fileStream.Close();
 
-        DataSavedEvent?.Invoke(null, EventArgs.Empty);
+        DataSavedEvent?.Invoke();
     }
 
     public static NPCDialoguesData LoadNPCDialogueData(string npcName)
@@ -131,7 +131,7 @@ public class SaveLoadSystem
 
         fileStream.Close();
 
-        DataSavedEvent?.Invoke(null, EventArgs.Empty);
+        DataSavedEvent?.Invoke();
     }
 
     public static NPCData LoadNPCData(DialogueTrigger npc)
@@ -165,7 +165,7 @@ public class SaveLoadSystem
 
         fileStream.Close();
 
-        DataSavedEvent?.Invoke(null, EventArgs.Empty);
+        DataSavedEvent?.Invoke();
     }
 
     public static EventTriggerData LoadEventTriggerData(EventTrigger eventTrigger)
@@ -199,7 +199,7 @@ public class SaveLoadSystem
 
         fileStream.Close();
 
-        DataSavedEvent?.Invoke(null, EventArgs.Empty);
+        DataSavedEvent?.Invoke();
     }
 
     public static QuestReceiverData LoadQuestReceiverData()
@@ -231,7 +231,7 @@ public class SaveLoadSystem
 
         fileStream.Close();
 
-        DataSavedEvent?.Invoke(null, EventArgs.Empty);
+        DataSavedEvent?.Invoke();
     }
 
     public static QuestTriggerData LoadQuestTriggerData(QuestTrigger questTrigger)
@@ -265,7 +265,7 @@ public class SaveLoadSystem
 
         fileStream.Close();
 
-        DataSavedEvent?.Invoke(null, EventArgs.Empty);
+        DataSavedEvent?.Invoke();
     }
 
     public static MirrorData LoadMirrorData()
@@ -300,7 +300,7 @@ public class SaveLoadSystem
 
         fileStream.Close();
 
-        DataSavedEvent?.Invoke(null, EventArgs.Empty);
+        DataSavedEvent?.Invoke();
     }
 
     public static string[] LoadFacts()

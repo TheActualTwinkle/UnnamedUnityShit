@@ -38,12 +38,12 @@ public class ChoiceButton : MonoBehaviour
     //Button.
     private void ExecuteEffect()
     {
-        DialogueTrigger dialogueTrigger = UnitDialogueHandler.CurrentSpeaker;
+        DialogueTrigger dialogueTrigger = DialogueHandler.CurrentSpeaker;
         dialogueTrigger.ChangeRelationshipWithPlayer(currentResponse.RelationshipsEffect);
 
         if (currentResponse?.QuestObject != null)
         {
-            var questReceiver = FindObjectOfType<QuestReceiver>();
+            var questReceiver = FindObjectOfType<QuestReceiver>(); // cringer
             questReceiver.AddQuest(currentResponse.QuestObject);
         }
 
@@ -58,6 +58,6 @@ public class ChoiceButton : MonoBehaviour
             return;
         }
 
-        DialogueDisplayer.DialogueDisplayed?.Invoke(this, EventArgs.Empty);
+        //DialogueDisplayer.DialogueDisplayedEvent?.Invoke();
     }
 }

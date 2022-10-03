@@ -11,10 +11,6 @@ public class SceneChanger : MonoBehaviour
     private static bool isLoading;
     public static bool IsLoading { get => isLoading; }
 
-#if UNITY_EDITOR
-    [SerializeField] private List<SceneAsset> nonPlayerScenes;
-    public List<SceneAsset> NonPlayerScenes => nonPlayerScenes;
-#endif
     private static Animator animator;
 
     private static Vector3 positionToLoad;
@@ -50,7 +46,7 @@ public class SceneChanger : MonoBehaviour
     {
         SceneManager.LoadScene(sceneToLoad);
 
-        var player = FindObjectOfType<PlayerController>();
+        var player = PlayerController.Instance;
         if (player != null)
             player.transform.position = positionToLoad;
 
