@@ -79,6 +79,7 @@ public class DialogueObject : ScriptableObject
     private void NameIDLikeFile()
     {
 #if UNITY_EDITOR
+        
         string assetPath = AssetDatabase.GetAssetPath(GetInstanceID());
         string extension = Path.GetExtension(assetPath);
 
@@ -91,6 +92,7 @@ public class DialogueObject : ScriptableObject
             dialogueID +=  dialogueInfo[i] + "/";
         }
         dialogueID = dialogueID.Substring(0, dialogueID.Length - extension.Length - 1);
+
 #endif
     }
 
